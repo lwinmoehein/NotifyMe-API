@@ -15,7 +15,7 @@ class WatchJobService
             'name'=>$data['name'],
             'slug'=>$slug,
             'url'=>$data['url'],
-            'tags'=>json_encode($data['tags'])
+            'tags'=>$data['tags']
         ]);
     }
 }

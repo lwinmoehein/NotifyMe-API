@@ -12,4 +12,13 @@ class WatchJob extends Model
     protected $fillable = [
         'name','url','is_active','user_id','last_tag_count','slug','tags'
     ];
+
+    protected $casts = [
+        'tags'=>'array'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

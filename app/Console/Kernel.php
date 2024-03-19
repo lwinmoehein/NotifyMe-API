@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Jobs\CheckTags;
+use App\Models\WatchJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -12,7 +14,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+
+        $schedule->job(new CheckTags)->everyOddHour();
     }
 
     /**
