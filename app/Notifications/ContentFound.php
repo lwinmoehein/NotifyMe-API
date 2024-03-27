@@ -7,7 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewContentFound extends Notification
+class ContentFound extends Notification
 {
     use Queueable;
 
@@ -37,9 +37,9 @@ class NewContentFound extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('Changes found on the web page you are watching.')
-                    ->action('Go to the website', url($this->watchJob->url))
-                    ->line('May be it is a new job posted!');
+                    ->line('Tag matches were found on the web page you are watching.')
+                    ->action('Go to the web page', url($this->watchJob->url))
+                    ->line($this->watchJob->last_tag_count." tag matches were found on the web page.");
     }
 
     /**

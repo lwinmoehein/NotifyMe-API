@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\WatchJobController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,5 +37,8 @@ Route::group([
 Route::group([
     'middleware'=>'api'
 ],function($router){
-    Route::resource('jobs', WatchJobController::class);
+    Route::get('jobs', [WatchJobController::class,'index']);
+    Route::get('notifications', [NotificationController::class,'index']);
+    Route::post('jobs', [WatchJobController::class,'store']);
+    Route::delete('jobs/{id}', [WatchJobController::class,'destroy']);
 });

@@ -101,7 +101,7 @@ return [
     |
     */
 
-    'ttl' => env('JWT_TTL', 60),
+    'ttl' => env('JWT_TTL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -147,7 +147,6 @@ return [
     'required_claims' => [
         'iss',
         'iat',
-        'exp',
         'nbf',
         'sub',
         'jti',

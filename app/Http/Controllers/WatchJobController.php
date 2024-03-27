@@ -24,6 +24,8 @@ class WatchJobController extends Controller
     public function index()
     {
         //
+	$jobs = WatchJob::where('user_id',auth()->user()->id)->orderBy('created_at','desc')->get();
+	return response()->json(["data"=>$jobs]);
 
     }
 
@@ -65,8 +67,12 @@ class WatchJobController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(WatchJob $watchJob)
+    public function destroy($id)
     {
         //
+        //$watchJob->delete();
+	WatchJob::where('id',$id)->delete();
+
+        return response()->json(['data'=>$watchJob],status:  204);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\WatchJob;
+use App\Notifications\ContentFound;
 use App\Notifications\NewContentFound;
 use Exception;
 use GuzzleHttp\Client;
@@ -45,14 +46,16 @@ class ScrapeTags implements ShouldQueue
             $responseBody = $response->getBody()->getContents();
             foreach ($tags as $tag){
                 $count = substr_count($responseBody,$tag);
-                if($this->watchJob->last_tag_count!=$count){
+                if($this->watchJob->last_tag_count!=$count && $this->watchJob->last_tag_count!=0){
                     $this->watchJob->update(['last_tag_count'=>$count]);
                     Notification::send([$this->watchJob->user], new NewContentFound($this->watchJob));
+                }
+                if($this->watchJob->last_tag_count==0 && 0<$count){
+                    Notification::send([$this->watchJob->user], new ContentFound($this->watchJob));
                 }
 
             }
         } catch (Exception $e) {
-            // Handle potential exceptions during the request
             echo 'Error: ' . $e->getMessage();
         }
 
