@@ -14,6 +14,9 @@ class ContentFound extends Notification
     /**
      * Create a new notification instance.
      */
+
+    protected $title = "Tag matches were found on the web page you are watching.";
+
     protected $watchJob;
     public function __construct(WatchJob $watchJob)
     {
@@ -37,7 +40,7 @@ class ContentFound extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('Tag matches were found on the web page you are watching.')
+                    ->line($this->title)
                     ->action('Go to the web page', url($this->watchJob->url))
                     ->line($this->watchJob->last_tag_count." tag matches were found on the web page.");
     }
@@ -50,7 +53,10 @@ class ContentFound extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'title'=>$this->title,
+            'job_name'=>$this->watchJob->name,
+            'job_url'=>$this->watchJob->url,
+            'job_last_tag_count'=>$this->watchJob->last_tag_count
         ];
     }
 }

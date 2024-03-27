@@ -11,6 +11,8 @@ class NewContentFound extends Notification
 {
     use Queueable;
 
+    protected $title = "Changes found on the web page you are watching.";
+
     /**
      * Create a new notification instance.
      */
@@ -37,7 +39,7 @@ class NewContentFound extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('Changes found on the web page you are watching.')
+                    ->line($this->title)
                     ->action('Go to the website', url($this->watchJob->url))
                     ->line('May be it is a new job posted!');
     }
@@ -50,7 +52,10 @@ class NewContentFound extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'title'=>$this->title,
+            'job_name'=>$this->watchJob->name,
+            'job_url'=>$this->watchJob->url,
+            'job_last_tag_count'=>$this->watchJob->last_tag_count
         ];
     }
 }
