@@ -9,6 +9,16 @@ use Illuminate\Notifications\Notification;
 
 class NewContentFound extends Notification
 {
+    public function toArray()
+    {
+        return [
+            'title'=>$this->title,
+            'job_name'=>$this->watchJob->name,
+            'job_url'=>$this->watchJob->url,
+            'job_last_tag_count'=>$this->watchJob->last_tag_count
+        ];
+    }
+
     use Queueable;
 
     protected $title = "Changes found on the web page you are watching.";
@@ -49,13 +59,5 @@ class NewContentFound extends Notification
      *
      * @return array<string, mixed>
      */
-    public function toArray(object $notifiable): array
-    {
-        return [
-            'title'=>$this->title,
-            'job_name'=>$this->watchJob->name,
-            'job_url'=>$this->watchJob->url,
-            'job_last_tag_count'=>$this->watchJob->last_tag_count
-        ];
-    }
+
 }

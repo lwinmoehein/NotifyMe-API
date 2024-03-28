@@ -71,8 +71,8 @@ class WatchJobController extends Controller
     {
         //
         //$watchJob->delete();
-	WatchJob::where('id',$id)->delete();
+	    WatchJob::where('id',$id)->delete();
 
-        return response()->json(['data'=>$watchJob],status:  204);
+        return response()->json(status:  204);
     }
 }
