@@ -48,11 +48,13 @@ class ScrapeTags implements ShouldQueue
                 $count = substr_count($responseBody,$tag);
                 if($this->watchJob->last_tag_count!=$count && $this->watchJob->last_tag_count!=0){
                     $this->watchJob->update(['last_tag_count'=>$count]);
-                    Notification::send([$this->watchJob->user], new NewContentFound($this->watchJob));
+                    if($this->watchJob->user->notification)
+                        Notification::send([$this->watchJob->user], new NewContentFound($this->watchJob));
                 }
                 if($this->watchJob->last_tag_count==0 && 0<$count){
                     $this->watchJob->update(['last_tag_count'=>$count]);
-                    Notification::send([$this->watchJob->user], new ContentFound($this->watchJob));
+                    if($this->watchJob->user->notification)
+                        Notification::send([$this->watchJob->user], new ContentFound($this->watchJob));
                 }
 
             }
