@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateSettings;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -40,6 +41,15 @@ class AuthController extends Controller
     public function me()
     {
         return response()->json(auth()->user());
+    }
+
+    public function update(UpdateSettings $settings)
+    {
+        $user = auth()->user();
+        $user->notification  = $settings->is_notifications_enabled;
+        $user->save();
+
+        return response()->json(status:204);
     }
 
     /**
