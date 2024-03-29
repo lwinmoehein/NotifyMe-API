@@ -18,4 +18,14 @@ class WatchJobService
             'tags'=>$data['tags']
         ]);
     }
+    function update(WatchJob $watchJob,array $data)
+    {
+        $attributes = $data;
+        if(isset($data['name'])){
+            $slug = Str::slug($data['name']);
+            $attributes = [...$data,['slug'=>$slug]];
+        }
+
+        $watchJob->update($attributes);
+    }
 }

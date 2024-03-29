@@ -71,9 +71,4 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(WatchJob::class);
     }
 
-    public function notifications(): MorphMany
-    {
-        return $this->morphMany(Notification::class, 'notifiable');
-    }
-
 }

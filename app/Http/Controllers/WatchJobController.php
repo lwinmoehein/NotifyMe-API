@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateWatchJob;
+use App\Http\Requests\UpdateWatchJob;
 use App\Models\WatchJob;
 use App\Services\WatchJobService;
 use GuzzleHttp\Promise\Create;
@@ -59,9 +60,11 @@ class WatchJobController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, WatchJob $watchJob)
+    public function update(UpdateWatchJob $request, WatchJob $watchJob)
     {
         //
+        $this->jobService->update($watchJob,$request->validated());
+        return response()->json(status:  204);
     }
 
     /**

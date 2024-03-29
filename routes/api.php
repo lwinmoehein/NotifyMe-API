@@ -17,9 +17,6 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
 
 Route::group([
     'middleware' => 'api',
@@ -40,5 +37,6 @@ Route::group([
     Route::get('jobs', [WatchJobController::class,'index']);
     Route::get('notifications', [NotificationController::class,'index']);
     Route::post('jobs', [WatchJobController::class,'store']);
+    Route::put('jobs/{watchJob}', [WatchJobController::class,'update']);
     Route::delete('jobs/{id}', [WatchJobController::class,'destroy']);
 });
