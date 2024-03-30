@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
 
-        $schedule->job(new CheckTags)->daily();
+        $schedule->job(new CheckTags)->everyFifteenMinutes();
     }
 
     /**
