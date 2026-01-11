@@ -41,6 +41,8 @@ class ScrapeTags implements ShouldQueue
 
         $tags = $this->watchJob->tags;
 
+        Log::info('scraping');
+
         try {
             $response = $client->get($url);
             $responseBody = $response->getBody()->getContents();
@@ -56,6 +58,7 @@ class ScrapeTags implements ShouldQueue
                     if($this->watchJob->user->notification)
                         Notification::send([$this->watchJob->user], new ContentFound($this->watchJob));
                 }
+                Log::error($count);
 
             }
         } catch (Exception $e) {

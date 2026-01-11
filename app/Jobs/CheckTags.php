@@ -34,6 +34,8 @@ class CheckTags implements ShouldQueue
         //
         $jobs = WatchJob::all();
 
+        Log::info('checking tags');
+
         foreach ($jobs as $job){
             Queue::push(new ScrapeTags($job));
         }
